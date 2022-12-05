@@ -41,4 +41,51 @@
     (compute-points (string-split line " "))
 )
 
+(println "Part 1 - Calculate points using direct strategy")
 (apply + (map process-line input))
+
+; ----
+(define (points-own-choice2 game)
+    (cond
+        [(string=? (car game) "A")
+            (cond
+                [(string=? (cadr game) "X") 3]
+                [(string=? (cadr game) "Y") 1]
+                [(string=? (cadr game) "Z") 2]
+            )
+        ]
+        [(string=? (car game) "B")
+            (cond
+                [(string=? (cadr game) "X") 1]
+                [(string=? (cadr game) "Y") 2]
+                [(string=? (cadr game) "Z") 3]
+            )
+        ]
+        [(string=? (car game) "C")
+            (cond
+                [(string=? (cadr game) "X") 2]
+                [(string=? (cadr game) "Y") 3]
+                [(string=? (cadr game) "Z") 1]
+            )
+        ]
+    )
+)
+
+(define (points-game2 game)
+    (cond
+        [(string=? (cadr game) "X") 0]
+        [(string=? (cadr game) "Y") 3]
+        [(string=? (cadr game) "Z") 6]
+    )
+)
+
+(define (compute-points2 game)
+    (+ (points-game2 game) (points-own-choice2 game))
+)
+
+(define (process-line2 line)
+    (compute-points2 (string-split line " "))
+)
+
+(println "Part 2 - Calculate points using alternate strategy")
+(apply + (map process-line2 input))
